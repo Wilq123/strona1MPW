@@ -1,0 +1,146 @@
+1.1 Wyświetlić zawartość wszystkich kolumn z tabeli pracownik.
+SELECT * from pracownik
+
+1.2 Z tabeli pracownik wyświetlić same imiona pracowników.
+SELECT imie from pracownik
+
+1.3 Wyświetlić zawartość kolumn imię, nazwisko i dział z tabeli pracownik.
+SELECT imie, nazwisko, dzial 
+from pracownik
+
+2 Sortowanie wyników zapytań (ORDER BY)
+
+2.1 Wyświetlić zawartość kolumn imię, nazwisko i pensja z tabeli pracownik. Wynik posortuj malejąco względem pensji .
+SELECT imie, nazwisko, 
+pensja from pracownik 
+ORDER BY pensja DESC;
+
+2.2 Wyświetl zawartość kolumn nazwisko i imię z tabeli pracownik. Wynik posortuj rosnąco (leksykograficznie)
+względem nazwiska i imienia.
+SELECT imie, nazwisko
+from pracownik 
+ORDER BY nazwisko DESC;
+
+
+2.3 Wyświetlić zawartość kolumn nazwisko, dział, stanowisko z tabeli pracownik. Wynik posortuj rosnąco względem
+działu, a dla tych samych nazw działów malejąco względem stanowiska.
+SELECT imie, nazwisko, dzial, stanowisko
+from pracownik 
+ORDER BY dzial ASC;
+
+
+3.1 Wyświetlić niepowtarzające się wartości kolumny dział z tabeli pracownik.
+SELECT DISTINCT dzial
+FROM pracownik GROUP BY dzial
+
+3.2 Wyświetlić unikatowe wiersze zawierające wartości kolumn dział i stanowisko w tabeli pracownik.
+SELECT DISTINCT dzial, stanowisko
+FROM pracownik GROUP BY stanowisko
+
+3.3 Wyświetlić unikatowe wiersze zawierające wartości kolumn dział i stanowisko w tabeli pracownik. Wynik posortuj
+malejąco względem działu i stanowiska.
+SELECT DISTINCT dzial, stanowisko
+FROM pracownik GROUP BY stanowisko
+ORDER BY dzial DESC
+
+4 Selekcja wyników zapytań (WHERE)
+
+4.1 Znajdź pracowników o imieniu Jan. Wyświetl ich imiona i nazwiska.
+SELECT imie, nazwisko
+from pracownik 
+WHERE imie ='jan';
+
+4.2 Wyświetlić imiona i nazwiska pracowników pracujących na stanowisku sprzedawca.
+SELECT imie, nazwisko, stanowisko
+from pracownik 
+WHERE stanowisko ='sprzedawca';
+
+4.3 Wyświetlić imiona, nazwiska, pensje pracowników, którzy zarabiają powyżej 1500 zł. Wynik posortuj malejąco względem pensji.
+SELECT imie, nazwisko, pensja
+from pracownik 
+WHERE pensja > 1500;
+
+
+5 Warunki złożone (AND, OR, NOT)
+
+5.1 Z tabeli pracownik wyświetlić imiona, nazwiska, działy, stanowiska tych pracowników, którzy pracują w dziale obsługi klienta na stanowisku sprzedawca.
+SELECT imie, nazwisko, dzial, stanowisko
+from pracownik 
+WHERE not dzial='obsługa klienta';
+
+5.2 Znaleźć pracowników pracujących w dziale technicznym na stanowisku kierownika lub sprzedawcy. Wyświetl imię, nazwisko, dział, stanowisko.
+SELECT imie, nazwisko, dzial, stanowisko
+from pracownik 
+WHERE  dzial='techniczny' AND stanowisko='sprzedawca' OR  stanowisko='sprzedawca';
+
+5.3 Znaleźć samochody, które nie są marek fiat i ford.
+SELECT id_samochod, marka
+from samochod
+WHERE  not marka='fiat'  and not marka='ford';
+
+6 Predykat IN
+
+6.1 Znaleźć samochody marek mercedes, seat i opel.
+SELECT id_samochod, marka
+from samochod
+WHERE   marka='mercedes'  OR  marka='seat' OR  marka='opel'; 
+
+6.2 Znajdź pracowników o imionach Anna, Marzena i Alicja. Wyświetl ich imiona, nazwiska i daty zatrudnienia.
+SELECT imie, nazwisko, data_zatr
+from pracownik
+WHERE  imie='anna'  OR  imie='marzena' OR  imie='alicja';
+
+6.3 Znajdź klientów, którzy nie mieszkają w Warszawie lub we Wrocławiu. Wyświetl ich imiona, nazwiska i miasta zamieszkania.
+SELECT imie, nazwisko, miasto
+from klient
+WHERE  not miasto='Wrocław'  and  not miasto='Warszawa';
+
+7 Predykat LIKE
+
+7.1 Wyświetlić imiona i nazwiska klientów, których nazwisko zawiera literę K.
+
+7.2 Wyświetlić imiona i nazwiska klientów, dla których nazwisko zaczyna się na D, a kończy się na SKI.
+
+7.3 Znaleźć imiona i nazwiska klientów, których nazwisko zawiera drugą literę O lub A.
+
+
+
+8 Predykat BETWEEN
+
+8.1 Z tabeli samochód wyświetlić wiersze, dla których pojemność silnika jest z przedziału [1100,1600].
+
+8.2 Znaleźć pracowników, którzy zostali zatrudnieni pomiędzy datami 1997-01-01 a 1997-12-31.
+
+8.3 Znaleźć samochody, dla których przebieg jest pomiędzy 10000 a 20000 km lub pomiędzy 30000 a 40000 km.
+
+
+
+9 Wartość NULL
+
+9.1 Znaleźć pracowników, którzy nie mają określonego dodatku do pensji.
+
+9.2 Wyświetlić klientów, którzy posiadają kartę kredytową.
+
+
+
+9.3 Dla każdego pracownika wyświetl imię, nazwisko i wysokość dodatku. Wartość NULL z kolumny dodatek powinna
+
+być wyświetlona jako 0. Wskazówka: Użyj funkcji COALESCE.
+
+
+
+10 Kolumny wyliczeniowe (COALESCE)
+
+10.1 Wyświetlić imiona, nazwiska pracowników ich pensje i dodatki oraz kolumnę wyliczeniową do_zapłaty,
+
+zawierającą sumę pensji i dodatku. Wskazówka: Wartość NULL z kolumny dodatek powinna być wyświetlona jako
+
+zero.
+
+10.2 Dla każdego pracownika wyświetl imię, nazwisko i wyliczeniową kolumnę nowa_pensja, która będzie miała o
+
+50% większą wartość niż dotychczasowa pensja.
+
+10.3 Dla każdego pracownika oblicz ile wynosi 1% zarobków (pensja + dodatek). Wyświetl imię, nazwisko i obliczony
+
+1%. Wyniki posortuj rosnąco względem obliczonego 1%.
